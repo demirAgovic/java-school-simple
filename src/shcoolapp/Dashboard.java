@@ -6,6 +6,7 @@
 package shcoolapp;
 
 import db.db;
+import java.sql.Connection;
 import java.sql.SQLException;
 
 /**
@@ -88,8 +89,8 @@ public class Dashboard extends javax.swing.JFrame {
      */
     public static void main(String args[]) throws SQLException {
         
-        db conn = new db("jdbc:mysql://localhost:3306/mysql", "root", "agovic6693");
-        conn.Conn();
+        db conn = new db();
+        Connection c = conn.getConnection();
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

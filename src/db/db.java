@@ -7,43 +7,110 @@ package db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.sql.ResultSet;
 
-/**
- *
- * @author demir
- */
 public class db {
+    private static String url = "jdbc:mysql://localhost:3306/";    
+    private static String driverName = "com.mysql.jdbc.Driver";   
+    private static String username = "root";   
+    private static String password = "";
+    private static Connection con;
+    private static String urlstring;
     
-    private String Username;
-    private String Password;
-    private String Server;
+    public db() {}
     
-    public db(String Username, String Password, String Server) {
-        this.Username = Username;
-        this.Password = Password;
-        this.Server = Server;
+    public static Connection getConnection() {
+        boolean checkDb = false;
+        try {
+            Class.forName(driverName);
+            try {
+                con = DriverManager.getConnection(url, username, password);
+                ResultSet resultSet = con.getMetaData().getCatalogs();
+                
+                while (resultSet.next()) {
+                    // Get the database name, which is at position 1
+                    String databaseName = resultSet.getString(1);
+                    if (databaseName.equals("school")) {
+                        checkDb = true;
+                    }
+                }
+                
+                if (!checkDb) {
+                    CreateDb(con);
+                }
+                
+            } catch (SQLException ex) {
+                // log an exception. fro example:
+                System.out.println(ex);
+                System.out.println("Failed to create the database connection."); 
+            }
+        } catch (ClassNotFoundException ex) {
+            // log an exception. for example:
+            System.out.println("Driver not found."); 
+        }
+        return con;
     }
     
-    public void Conn() throws SQLException {
+    private static boolean CreateDb(Connection conn) throws SQLException {
         
-        Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+        String queryDb = "CREATE DATABASE `School`;";
         
+        String queryUse = "USE School;";
+        
+        String queryUcenik = "CREATE TABLE `Ucenik` (\n" +
+"	`Id` INT(10) NOT NULL AUTO_INCREMENT,\n" +
+"	`Ime` VARCHAR(255),\n" +
+"	`Prezime` VARCHAR(255),\n" +
+"	PRIMARY KEY (`Id`)\n" +
+");";
+        
+        String queryPredmet = "CREATE TABLE `Predmet` (\n" +
+"	`Id` INT(10) NOT NULL AUTO_INCREMENT,\n" +
+"	`Predmet` VARCHAR(255),\n" +
+"	PRIMARY KEY (`Id`)\n" +
+");";
+        String queryOcena = "CREATE TABLE `Ocena` (\n" +
+"	`Id` INT(10) NOT NULL AUTO_INCREMENT,\n" +
+"	`Ocena` INT(2),\n" +
+"	`PredmetId` INT(10),\n" +
+"	PRIMARY KEY (`Id`)\n" +
+");";
+   
         try {
-            conn = DriverManager.getConnection(this.Server, this.Username, this.Password);
-            stmt = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-            
-            System.out.println("Connected");
-        } catch (SQLException e) {
-            System.err.print(e);
-        } finally {
-            if (conn != null) {
-                conn.close();
+            Statement st = conn.createStatement();
+            int result = st.executeUpdate(queryDb);
+            if (result > 0) {
+                System.out.println("Db created");
+                
+                st.executeUpdate(queryUse);
+                
+               int resUcenik = st.executeUpdate(queryUcenik);
+                
+               if (resUcenik > 0) {
+                   System.out.println("UcenikDb created");
+               }
+               
+               int resPredmet = st.executeUpdate(queryPredmet);
+                
+               if (resPredmet > 0) {
+                   System.out.println("Predmet created");
+               }
+               
+               int resOcena = st.executeUpdate(queryOcena);
+               
+               if (resOcena > 0) {
+                   
+               } System.out.println("Ocena created");
             }
+        } catch (SQLException ex) {
+            System.out.println(ex);
+            return false;
+        } finally {
+            conn.close();
         }
+        
+        return true;
     }
 }
