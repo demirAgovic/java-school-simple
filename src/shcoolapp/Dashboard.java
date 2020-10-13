@@ -6,6 +6,7 @@
 package shcoolapp;
 
 import db.db;
+import java.awt.event.ActionEvent;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -52,6 +53,11 @@ public class Dashboard extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Dodaj učenika");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jTextField1.setText("jTextField1");
 
@@ -84,6 +90,11 @@ public class Dashboard extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+        AddUcenik frameUcenik = new AddUcenik();
+        frameUcenik.setVisible(true);
+    }//GEN-LAST:event_jButton1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -98,7 +109,7 @@ public class Dashboard extends javax.swing.JFrame {
             }
         });
     }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;

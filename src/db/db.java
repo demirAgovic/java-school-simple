@@ -15,7 +15,7 @@ public class db {
     private static String url = "jdbc:mysql://localhost:3306/";    
     private static String driverName = "com.mysql.jdbc.Driver";   
     private static String username = "root";   
-    private static String password = "";
+    private static String password = "agovic6693";
     private static Connection con;
     private static String urlstring;
     
@@ -32,7 +32,7 @@ public class db {
                 while (resultSet.next()) {
                     // Get the database name, which is at position 1
                     String databaseName = resultSet.getString(1);
-                    if (databaseName.equals("school")) {
+                    if (databaseName.equals("School")) {
                         checkDb = true;
                     }
                 }
@@ -75,6 +75,7 @@ public class db {
 "	`Id` INT(10) NOT NULL AUTO_INCREMENT,\n" +
 "	`Ocena` INT(2),\n" +
 "	`PredmetId` INT(10),\n" +
+"	`UcenikId` INT(10),\n" +
 "	PRIMARY KEY (`Id`)\n" +
 ");";
    
@@ -101,8 +102,8 @@ public class db {
                int resOcena = st.executeUpdate(queryOcena);
                
                if (resOcena > 0) {
-                   
-               } System.out.println("Ocena created");
+                System.out.println("Ocena created");   
+               }
             }
         } catch (SQLException ex) {
             System.out.println(ex);

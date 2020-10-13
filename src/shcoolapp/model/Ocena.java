@@ -15,12 +15,16 @@ public class Ocena {
     public int Ocena;
     public int PredmetId;
     public Predmet Predmet;
+    public int UcenikId;
+    public Ucenik Ucenik;
     
-    public Ocena (int Id, int Ocena, int PredmetId, Predmet Predmet) {
+    public Ocena (int Id, int Ocena, int PredmetId, Predmet Predmet, int UcenikId, Ucenik Ucenik) {
         this.Id = Id;
         this.Ocena = Ocena;
         this.PredmetId = PredmetId;
         this.Predmet = Predmet;
+        this.UcenikId = UcenikId;
+        this.Ucenik = Ucenik;
     }
 
     public int getId() {
@@ -53,6 +57,22 @@ public class Ocena {
 
     public void setPredmet(Predmet Predmet) {
         this.Predmet = Predmet;
+    }
+
+    public int getUcenikId() {
+        return UcenikId;
+    }
+
+    public void setUcenikId(int UcenikId) {
+        this.UcenikId = UcenikId;
+    }
+
+    public Ucenik getUcenik() {
+        return Ucenik;
+    }
+
+    public void setUcenik(Ucenik Ucenik) {
+        this.Ucenik = Ucenik;
     }
     
     
