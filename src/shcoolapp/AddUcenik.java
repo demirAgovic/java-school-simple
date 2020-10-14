@@ -5,13 +5,14 @@
  */
 package shcoolapp;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import service.service;
 import shcoolapp.model.Ucenik;
 
-/**
- *
- * @author demir
- */
 public class AddUcenik extends javax.swing.JFrame {
 
     /**
@@ -19,6 +20,7 @@ public class AddUcenik extends javax.swing.JFrame {
      */
     public AddUcenik() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -37,7 +39,7 @@ public class AddUcenik extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Unesi ime");
 
@@ -100,7 +102,16 @@ public class AddUcenik extends javax.swing.JFrame {
        
        Ucenik ucenik = new Ucenik(0, jTextField1.getText(), jTextField2.getText());
        service s = new service();
-       s.insertUcenik(ucenik);
+       
+        try {
+            ucenik = s.insertUcenik(ucenik);
+            
+            if (ucenik != null) {
+                this.dispose();
+            }
+        } catch (SQLException ex) {
+            System.err.print(ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

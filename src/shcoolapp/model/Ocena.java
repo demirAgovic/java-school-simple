@@ -18,6 +18,12 @@ public class Ocena {
     public int UcenikId;
     public Ucenik Ucenik;
     
+    public Ocena(int Ocena, int PredmetId, int UcenikId) {       
+        this.Ocena = Ocena;
+        this.PredmetId = PredmetId;
+        this.UcenikId = UcenikId;
+    }
+    
     public Ocena (int Id, int Ocena, int PredmetId, Predmet Predmet, int UcenikId, Ucenik Ucenik) {
         this.Id = Id;
         this.Ocena = Ocena;
