@@ -107,6 +107,8 @@ public class Ocene extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTextField1.setToolTipText("");
+        jTextField1.setMaximumSize(new java.awt.Dimension(1, 1));
+        jTextField1.setMinimumSize(new java.awt.Dimension(1, 1));
 
         jLabel1.setText("jLabel1");
 
@@ -163,7 +165,7 @@ public class Ocene extends javax.swing.JFrame {
                             .addComponent(jTextField2)
                             .addComponent(jTextField3)
                             .addComponent(jTextField4)
-                            .addComponent(jTextField1))))
+                            .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(115, 115, 115)
@@ -212,27 +214,27 @@ public class Ocene extends javax.swing.JFrame {
         service s = new service();
         List<Ocena> ocene = new ArrayList<Ocena>();
         
-        if (jTextField1.getText() != "") {
+        if (!jTextField1.getText().equals("")) {
             Ocena ocena1 = new Ocena(Integer.parseInt(jTextField1.getText()),  predmets.get(0).Id, getUcenikId());
             ocene.add(ocena1);
         }
         
-        if (jTextField1.getText() != "") {
+        if (!jTextField2.getText().equals("")) {
             Ocena ocena2 = new Ocena(Integer.parseInt(jTextField2.getText()),  predmets.get(1).Id, getUcenikId());
             ocene.add(ocena2);
         }
         
-        if (jTextField1.getText() != "") {
+        if (!jTextField3.getText().equals("")) {
             Ocena ocena3 = new Ocena(Integer.parseInt(jTextField3.getText()),  predmets.get(2).Id, getUcenikId());
             ocene.add(ocena3);
         }
         
-        if (jTextField1.getText() != "") {
+        if (!jTextField4.getText().equals("")) {
             Ocena ocena4 = new Ocena(Integer.parseInt(jTextField4.getText()),  predmets.get(3).Id, getUcenikId());
             ocene.add(ocena4);
         }
         
-        if (jTextField1.getText() != "") {
+        if (!jTextField5.getText().equals("")) {
             Ocena ocena5 = new Ocena(Integer.parseInt(jTextField5.getText()),  predmets.get(4).Id, getUcenikId());
             ocene.add(ocena5);
         }
@@ -243,6 +245,8 @@ public class Ocene extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             Logger.getLogger(Ocene.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            this.dispose();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 

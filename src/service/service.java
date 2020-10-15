@@ -172,7 +172,7 @@ public class service {
             conn = db.getConnection();
             PreparedStatement stmt = null;
             ResultSet rs = null;
-            String query = "UPDATE Ocena SET Ocena="+Ocena+";";
+            String query = "UPDATE Ocena SET Ocena="+Ocena+" WHERE Id = "+OcenaId+";";
             
             stmt = conn.prepareStatement(query);
             stmt.executeUpdate();
